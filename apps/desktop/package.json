@@ -1,0 +1,63 @@
+{
+  "name": "rivr-photo-desktop",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Desktop MVP starter for a Photoshop-like app",
+  "main": "dist/main/main.js",
+  "author": "You",
+  "license": "MIT",
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:tsc": "tsc -w -p ./tsconfig.main.json",
+    "dev:electron": "wait-on dist/main/preload.js && electron .",
+    "dev": "concurrently -k \"npm:dev:*\"",
+    "build:tsc": "tsc -p ./tsconfig.main.json",
+    "build:renderer": "vite build",
+    "build": "npm run build:tsc && npm run build:renderer && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "concurrently": "^8.2.2",
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.rivr.photo",
+    "productName": "Rivr Photo",
+    "files": [
+      "dist/**/*",
+      "renderer/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}
